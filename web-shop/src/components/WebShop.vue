@@ -15,9 +15,26 @@
           <!--Product list -->
           <div v-if="availableProducts != undefined">
             <div class="list-group" style="width: 90%; margin: 0 auto;">
+              <table width="500px">
+                <tr>
+                  <th><h5 class="fixSpaces table-row" >Index</h5></th>
+                  <th><h5 class="fixSpaces table-row" >Title</h5></th>
+                  <th><h5 class="fixSpaces table-row" >Description</h5></th>
+                  <th><h5 class="fixSpaces table-row" >Price</h5></th>
+                  <th><h5 class="fixSpaces table-row" >Code</h5></th>
+                </tr>
+              </table>
               <a href="javascript:void(0)" v-for="(product, index) in availableProducts"
                  v-on:click="displayProduct(product)">
-                <h6 class="fixSpaces" style="text-align: left; color: black; text-decoration: none !important;">{{index}}. {{ product.title }} - {{ product.description }} - {{ product.price }}  {{ product.id }} </h6>
+                <table width="500px">
+                <tr>
+                  <td><h5 class="fixSpaces table-row">{{index}}</h5></td>
+                  <td><h5 class="fixSpaces table-row">{{product.title}}</h5></td>
+                  <td><h5 class="fixSpaces table-row">{{product.description}}</h5></td>
+                  <td><h5 class="fixSpaces table-row">{{product.price}}</h5></td>
+                  <td><h5 class="fixSpaces table-row"> {{ product.id }} </h5></td>
+                </tr>
+                </table>
               </a>
             </div>
           </div>
@@ -39,7 +56,7 @@
 
               <!--product counter-->
               <div v-if="selectedProduct != undefined">
-                <h5 class="fixSpaces">You have order {{ selectedProductCounter }} items of this product</h5>
+                <h5 class="fixSpaces">You have {{ selectedProductCounter }} items of this product in the basket</h5>
               </div>
             </div>
           </div>
@@ -54,12 +71,33 @@
 
           <!--Display selected products-->
           <div class="list-group" style="width: 90%; margin: 0 auto;">
+            <table width="600px">
+              <tr>
+                <th><h5 class="fixSpaces table-row">Code</h5></th>
+                <th><h5 class="fixSpaces table-row">Title</h5></th>
+                <th><h5 class="fixSpaces table-row">Description</h5></th>
+                <th><h5 class="fixSpaces table-row">Price</h5></th>
+                <th><h5 class="fixSpaces table-row">Selected items</h5></th>
+                <th><h5 class="fixSpaces table-row"> </h5></th>
+              </tr>
+            </table>
+            
             <div  v-for="product in availableProducts" >
               <div v-if="productMap[product.id] != 0">
-                <h6 class="fixSpaces" style="text-align: left; color: black; text-decoration: none !important;"> {{ product.id }} - {{ product.title }} - {{ product.description }} - {{ product.price }} - {{ productMap[product.id] }}
-                  <button class="btn btn-success"  v-on:click="addProduct(product)">+</button>
-                  <button class="btn btn-success"  v-on:click="removeProduct(product)">-</button>
-                </h6>
+                <table width="600px">
+                  <tr>
+                    <td><h5 class="fixSpaces table-row" >{{product.id}}</h5></td>
+                    <td><h5 class="fixSpaces table-row" >{{product.title}}</h5></td>
+                    <td><h5 class="fixSpaces table-row" >{{product.description}}</h5></td>
+                    <td><h5 class="fixSpaces table-row" >{{product.price}}</h5></td>
+                    <td><h5 class="fixSpaces table-row" >{{productMap[product.id]}}</h5></td>
+                    <!--add / remove product-->
+                    <td><div class="fixSpaces table-row">
+                      <button class="btn btn-success"  v-on:click="addProduct(product)">+</button>
+                      <button class="btn btn-success"  v-on:click="removeProduct(product)">-</button>
+                    </div></td>
+                  </tr>
+                </table>
               </div>
             </div>
 
@@ -87,6 +125,13 @@
     left: 0;
     display: flex;
     flex-direction: row;
+  }
+
+  .table-row {
+    text-align: left;
+    color: black;
+    text-decoration: none !important;
+    width: 100px;
   }
 
   .settings-panel {
